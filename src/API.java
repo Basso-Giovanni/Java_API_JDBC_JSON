@@ -7,8 +7,9 @@ public class API
      *
      * @param urlString stringa con l'URL dell'API
      * @return una stringa in formato JSON con la risposta
+     * @throws Exception se si verifica un'eccezione
      */
-    public static String GET(String urlString)
+    public static String GET(String urlString) throws Exception
     {
         try
         {
@@ -31,10 +32,9 @@ public class API
             else // altrimenti lancia un eccezione Runtime indicante il codice d'errore HTTP
                 throw new RuntimeException("Failed: HTTP error code: " + response.statusCode());
         }
-        catch (Exception e) // se avviene un eccezione stampa la Stack trace
+        catch (Exception e) // se avviene un'eccezione la passa al metodo chiamante
         {
-            e.printStackTrace();
-            return null;
+            throw new Exception(e);
         }
     }
 
@@ -43,9 +43,12 @@ public class API
      * @param urlString stringa con l'URL dell'API
      * @param content stringa (formattata in JSON) con l'oggeto da POSTare
      * @return una stringa indicante cosa è stato caricato (formattato in JSON)
+     * @throws Exception se si verifica un'eccezione
      */
-    public static String POST(String urlString, String content) {
-        try {
+    public static String POST(String urlString, String content) throws Exception
+    {
+        try
+        {
             // crea un client HttpClient per gestire la richiesta HTTP
             HttpClient client = HttpClient.newHttpClient();
 
@@ -67,11 +70,9 @@ public class API
                 // Se il codice di stato non è 200, lancia un'eccezione con il codice di errore
                 throw new RuntimeException("Failed: HTTP error code: " + response.statusCode());
         }
-        catch (Exception e)
+        catch (Exception e) // se avviene un'eccezione la passa al metodo chiamante
         {
-            // Stampa l'errore nel caso di eccezione e restituisce null
-            e.printStackTrace();
-            return null;
+            throw new Exception(e);
         }
     }
 
@@ -80,9 +81,12 @@ public class API
      * @param urlString stringa dell'URL dell'API
      * @param content stringa (formattata in JSON) dell'oggetto da pubblicare
      * @return una stringa con l'oggetto aggiornato (sempre in JSON)
+     * @throws Exception se si verifica un'eccezione
      */
-    public static String PUT(String urlString, String content) {
-        try {
+    public static String PUT(String urlString, String content) throws Exception
+    {
+        try
+        {
             // Crea un client HttpClient per gestire la richiesta HTTP
             HttpClient client = HttpClient.newHttpClient();
 
@@ -103,10 +107,10 @@ public class API
             else
                 // Se il codice di stato non è 200, lancia un'eccezione con il codice di errore
                 throw new RuntimeException("Failed: HTTP error code: " + response.statusCode());
-        } catch (Exception e) {
-            // Stampa l'errore nel caso di eccezione e restituisce null
-            e.printStackTrace();
-            return null;
+        }
+        catch (Exception e) // se avviene un'eccezione la passa al metodo chiamante
+        {
+            throw new Exception(e);
         }
     }
 
@@ -114,8 +118,9 @@ public class API
      *
      * @param urlString stringa con l'URL dell'API
      * @return una stringa indicante se l'oggetto è stato eliminato
+     * @throws Exception se si verifica un'eccezione
      */
-    public static String DELETE(String urlString)
+    public static String DELETE(String urlString) throws Exception
     {
         try
         {
@@ -139,11 +144,9 @@ public class API
                 // Se il codice di stato non è 204 o 200, lancia un'eccezione con il codice di errore
                 throw new RuntimeException("Failed: HTTP error code: " + response.statusCode());
         }
-        catch (Exception e)
+        catch (Exception e) // se avviene un'eccezione la passa al metodo chiamante
         {
-            // Stampa l'errore in caso di eccezione e restituisce null
-            e.printStackTrace();
-            return null;
+            throw new Exception(e);
         }
     }
 }
